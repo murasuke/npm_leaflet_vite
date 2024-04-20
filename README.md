@@ -15,6 +15,9 @@ https://qiita.com/murasuke/items/0ccc088b3a4dde8bf385
 ## 環境作成
 
 * node.jsはインストール済みの想定
+* [Leaflet](https://leafletjs.com/)をnpmでインストールして、簡単な地図アプリを作成します
+* bash(windows上のgit-bash)を利用しています
+
 
 ### 1. viteでテンプレート(`vanilla`)を生成
 
@@ -108,7 +111,7 @@ $  npm run dev
 
 ![img10](./img/img10.png)
 
-## Hot Module Replacementが機能していることを確認
+### Hot Module Replacementが機能していることを確認
 
 地図の緯度経度を変えて保存をすると、地図の位置が即座に変更されることが確認できます。
 
@@ -122,7 +125,7 @@ const latLen = [35, 135];
 ![img30](./img/img30.png)
 
 
-## リリースビルド(と動作確認)
+### リリースビルド(と動作確認)
 
 ビルドコマンドを実行すると`./dist`フォルダに出力されます
 
