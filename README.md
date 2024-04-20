@@ -1,4 +1,4 @@
-# Viteを利用してvanilla＋npmを利用できる環境を作成する
+# Viteを利用してvanillaJSでnpmを利用できる環境を作成する
 
 ## はじめに
 
@@ -6,11 +6,17 @@
 
 `import`や `require`でライブラリを読み込み、さらにそれを[バンドル](https://qiita.com/kome1996/items/1731e53cfefed79eafcc)する必要があります
 
-以前、[rollup.js](https://rollupjs.org/)を使って[ビルドする手順](https://qiita.com/murasuke/items/0ccc088b3a4dde8bf385)を作成したのですが、Hot Module Replacement(HMR、JSの変更を即時でブラウザに適用する機能)ができないため、ちょっとした修正のたびにビルドを行う必要があり面倒でした。
+以前、[rollup.js](https://rollupjs.org/)を使って[ビルドする手順](https://qiita.com/murasuke/items/0ccc088b3a4dde8bf385)を作成したのですが、Hot Module Replacement(HMR、JSの変更を即時でブラウザに適用する機能)ができないため、ちょっとした修正のたびにビルドを行う必要があり面倒でした
 
-そこでこの記事では、[Vite](https://ja.vitejs.dev/)を利用して、HMRが行われる快適な環境を作成してみます。
+https://qiita.com/murasuke/items/0ccc088b3a4dde8bf385
 
-### viteでテンプレート(`vanilla`)を生成
+そこでこの記事では、[Vite](https://ja.vitejs.dev/)を利用して、Hot Module Replacementが行われる快適な環境を作成してみます
+
+## 環境作成
+
+* node.jsはインストール済みの想定
+
+### 1. viteでテンプレート(`vanilla`)を生成
 
 [vanilla](https://ja.wikipedia.org/wiki/%E3%83%90%E3%83%8B%E3%83%A9_(%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2))とは
 
@@ -35,20 +41,20 @@ vanillaテンプレートは下記ファイルが生成されました
 
 ![img20](./img/img20.png)
 
-### viteとleafletをインストール
+### 2. vite環境とleafletをインストール
 ```bash
 $ cd npm_leaflet_vite
 $ npm install
 $ npm i leaflet
 ```
 
-### テンプレートに含まれる不要なファイルを削除
+### 3. テンプレートに含まれる不要なファイルを削除
 
 ```bash
 $ rm style.css javascript.svg counter.js
 ```
 
-### main.jsファイルの書き換え(leaflet.jsで地図を表示する)
+### 4. `main.js`ファイルの書き換え(leaflet.jsで地図を表示する)
 
 [Leaflet](https://leafletjs.com/)公式[Quick Start Guide](https://leafletjs.com/examples/quick-start/#:~:text=example%20stand%2Dalone.-,Preparing%20your%20page,-Before%20writing%20any)ページのサンプルをもとに、地図を国土地理院の[地理院タイル](https://maps.gsi.go.jp/development/ichiran.html)に変更したサンプルプログラムです
 
@@ -72,7 +78,7 @@ L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png', {
 export default map;
 ```
 
-### index.htmlファイルの書き換え(&lt;style&gt;タグの追加)
+### 5. index.htmlファイルの書き換え(&lt;style&gt;タグの追加)
 
 &lt;head&gt;タグ内に下記のスタイルを追加します(これがないとleafletの高さが0になってしまい表示されないため)
 
@@ -83,6 +89,7 @@ export default map;
     #app { height: 100vh; }
   </style>
 ```
+## 動作確認
 
 ### vite開発サーバーを実行
 
@@ -131,7 +138,7 @@ $ find . -type f
 
 * 動作確認
 
-簡易httpサーバー(http-server)を実行して、「http://127.0.0.1:8080/」を開くと地図が表示されます
+簡易httpサーバー(http-server)を実行して、「http://127.0.0.1:8080/ 」を開くと地図が表示されます
 ```
 $ npx http-server ./dist
 Starting up http-server, serving ./dist
